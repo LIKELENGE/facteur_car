@@ -38,7 +38,9 @@ model Degat {
   dateConstat DateTime @map("date_constat")
   lienImage   String   @map("lien_image")
 
-  conduites Conduire[]
+  idConduire Int @map("Id_conduire")
+
+  conduite Conduire @relation(fields: [idConduire], references: [idConduire])
 
   @@map("degat")
 }
@@ -106,23 +108,24 @@ model PieceJustificative {
 }
 
 model Conduire {
+  idConduire Int @id @default(autoincrement()) @map("Id_conduire")
+
   matricule String
   idFacteur Int      @map("Id_facteur")
-  idDegat   Int      @map("Id_degat")
   dateDebut DateTime @map("date_debut")
   dateFin   DateTime @map("date_fin")
 
   vehicule Vehicule @relation(fields: [matricule], references: [matricule])
   facteur  Facteur  @relation(fields: [idFacteur], references: [idFacteur])
-  degat    Degat    @relation(fields: [idDegat], references: [idDegat])
 
-  @@id([matricule, idFacteur, idDegat])
+  degats Degat[]
+
   @@map("conduire")
 }
 
 model Subir {
   matricule      String
-  idIntervention Int    @map("Id_intervention")
+  idIntervention Int @map("Id_intervention")
 
   vehicule     Vehicule     @relation(fields: [matricule], references: [matricule])
   intervention Intervention @relation(fields: [idIntervention], references: [idIntervention])

@@ -5,12 +5,13 @@ import { FacteurComponent } from './components/facteur/facteur';
 import { Vehicules } from './components/vehicules/vehicules';
 import { VehiculeComponent } from './components/vehicule/vehicule';
 import { Tournee } from './components/tournee/tournee';
+import { Tournees } from './components/tournees/tournees';
+import { Accueil } from './components/accueil/accueil';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'facteurs',
-    pathMatch: 'full',
+    component: Accueil,
   },
   {
     path: 'facteurs',
@@ -43,6 +44,9 @@ export const routes: Routes = [
   {
     path:'tournee/modifier/:id',
     component: Tournee,
+  },
+  {
+    path:'tournees',
+    component: Tournees,
   }
-
 ];

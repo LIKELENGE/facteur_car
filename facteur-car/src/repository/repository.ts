@@ -37,13 +37,13 @@ export async function getTypes(): Promise<Type[]> {
 }
 
 export async function addType(nomType: string): Promise<Type> {
-    return await prisma.type.create({
+    return prisma.type.create({
         data: { nomType },
     });
 }
 
 export async function updateType(idType: number, nomType: string): Promise<Type> {
-    return await prisma.type.update({
+    return prisma.type.update({
         where: { idType },
         data: { nomType },
     });
@@ -80,7 +80,7 @@ export async function getFacteurById(idFacteur: number): Promise<Facteur | null>
 }
 
 export async function addFacteur(data: CreateFacteurData): Promise<Facteur> {
-    return await prisma.facteur.create({
+    return prisma.facteur.create({
         data,
     });
 }
@@ -89,7 +89,7 @@ export async function updateFacteur(
     idFacteur: number,
     data: Partial<CreateFacteurData>
 ): Promise<Facteur> {
-    return await prisma.facteur.update({
+    return prisma.facteur.update({
         where: { idFacteur },
         data,
     });
@@ -107,6 +107,7 @@ export type CreateDegatData = {
     description: string;
     dateConstat: Date;
     lienImage: string;
+    idConduire: number;
 };
 
 export async function getDegats(): Promise<Degat[]> {
@@ -122,7 +123,7 @@ export async function getDegatById(idDegat: number): Promise<Degat | null> {
 }
 
 export async function addDegat(data: CreateDegatData): Promise<Degat> {
-    return await prisma.degat.create({
+    return prisma.degat.create({
         data,
     });
 }
@@ -131,7 +132,7 @@ export async function updateDegat(
     idDegat: number,
     data: Partial<CreateDegatData>
 ): Promise<Degat> {
-    return await prisma.degat.update({
+    return prisma.degat.update({
         where: { idDegat },
         data,
     });
@@ -151,8 +152,10 @@ export async function getTypesIntervention(): Promise<TypeIntervention[]> {
     });
 }
 
-export async function addTypeIntervention(libelle: string): Promise<TypeIntervention> {
-    return await prisma.typeIntervention.create({
+export async function addTypeIntervention(
+    libelle: string
+): Promise<TypeIntervention> {
+    return prisma.typeIntervention.create({
         data: { libelle },
     });
 }
@@ -161,13 +164,15 @@ export async function updateTypeIntervention(
     idTypeIntervention: number,
     libelle: string
 ): Promise<TypeIntervention> {
-    return await prisma.typeIntervention.update({
+    return prisma.typeIntervention.update({
         where: { idTypeIntervention },
         data: { libelle },
     });
 }
 
-export async function deleteTypeIntervention(idTypeIntervention: number): Promise<void> {
+export async function deleteTypeIntervention(
+    idTypeIntervention: number
+): Promise<void> {
     await prisma.typeIntervention.delete({
         where: { idTypeIntervention },
     });
@@ -184,7 +189,7 @@ export async function getTypesPieceJustificative(): Promise<TypePieceJustificati
 export async function addTypePieceJustificative(
     libelle: string
 ): Promise<TypePieceJustificative> {
-    return await prisma.typePieceJustificative.create({
+    return prisma.typePieceJustificative.create({
         data: { libelle },
     });
 }
@@ -193,7 +198,7 @@ export async function updateTypePieceJustificative(
     idTypePieceJustificative: number,
     libelle: string
 ): Promise<TypePieceJustificative> {
-    return await prisma.typePieceJustificative.update({
+    return prisma.typePieceJustificative.update({
         where: { idTypePieceJustificative },
         data: { libelle },
     });
@@ -222,14 +227,16 @@ export async function getVehicules(): Promise<Vehicule[]> {
     });
 }
 
-export async function getVehiculeByMatricule(matricule: string): Promise<Vehicule | null> {
+export async function getVehiculeByMatricule(
+    matricule: string
+): Promise<Vehicule | null> {
     return prisma.vehicule.findUnique({
         where: { matricule },
     });
 }
 
 export async function addVehicule(data: CreateVehiculeData): Promise<Vehicule> {
-    return await prisma.vehicule.create({
+    return prisma.vehicule.create({
         data,
     });
 }
@@ -238,7 +245,7 @@ export async function updateVehicule(
     matricule: string,
     data: Partial<Omit<CreateVehiculeData, 'matricule'>>
 ): Promise<Vehicule> {
-    return await prisma.vehicule.update({
+    return prisma.vehicule.update({
         where: { matricule },
         data,
     });
@@ -277,7 +284,7 @@ export async function getInterventionById(
 export async function addIntervention(
     data: CreateInterventionData
 ): Promise<Intervention> {
-    return await prisma.intervention.create({
+    return prisma.intervention.create({
         data,
     });
 }
@@ -286,7 +293,7 @@ export async function updateIntervention(
     idIntervention: number,
     data: Partial<CreateInterventionData>
 ): Promise<Intervention> {
-    return await prisma.intervention.update({
+    return prisma.intervention.update({
         where: { idIntervention },
         data,
     });
@@ -323,7 +330,7 @@ export async function getPieceJustificativeById(
 export async function addPieceJustificative(
     data: CreatePieceJustificativeData
 ): Promise<PieceJustificative> {
-    return await prisma.pieceJustificative.create({
+    return prisma.pieceJustificative.create({
         data,
     });
 }
@@ -332,7 +339,7 @@ export async function updatePieceJustificative(
     idPieceJustificative: number,
     data: Partial<CreatePieceJustificativeData>
 ): Promise<PieceJustificative> {
-    return await prisma.pieceJustificative.update({
+    return prisma.pieceJustificative.update({
         where: { idPieceJustificative },
         data,
     });
@@ -347,48 +354,60 @@ export async function deletePieceJustificative(
 }
 
 // ─── Conduire ──────────────────────────────────────────────────
-// Table de liaison entre véhicule, facteur et dégât.
-// Clé primaire composée : matricule + idFacteur + idDegat
+// Une conduite appartient à un véhicule et à un facteur.
+// Une conduite peut avoir plusieurs dégâts.
 
 export type CreateConduireData = {
     matricule: string;
     idFacteur: number;
-    idDegat: number;
     dateDebut: Date;
     dateFin: Date;
 };
 
 export async function getConduites(): Promise<Conduire[]> {
     return prisma.conduire.findMany({
-        orderBy: [
-            { matricule: 'asc' },
-            { idFacteur: 'asc' },
-            { idDegat: 'asc' },
-        ],
+        orderBy: { idConduire: 'asc' },
     });
 }
 
-export async function addConduire(data: CreateConduireData): Promise<Conduire> {
-    return await prisma.conduire.create({
+export async function getConduireById(
+    idConduire: number
+): Promise<Conduire | null> {
+    return prisma.conduire.findUnique({
+        where: { idConduire },
+    });
+}
+
+export async function getConduitesCompletes() {
+    return prisma.conduire.findMany({
+        include: {
+            vehicule: {
+                include: {
+                    type: true,
+                },
+            },
+            facteur: true,
+            degats: true,
+        },
+        orderBy: { idConduire: 'asc' },
+    });
+}
+
+export async function addConduire(
+    data: CreateConduireData
+): Promise<Conduire> {
+    return prisma.conduire.create({
         data,
     });
 }
 
 export async function updateConduireDates(
-    matricule: string,
-    idFacteur: number,
-    idDegat: number,
+    idConduire: number,
     dateDebut: Date,
     dateFin: Date
 ): Promise<Conduire> {
-    return await prisma.conduire.update({
-        where: {
-            matricule_idFacteur_idDegat: {
-                matricule,
-                idFacteur,
-                idDegat,
-            },
-        },
+    return prisma.conduire.update({
+        where: { idConduire },
         data: {
             dateDebut,
             dateFin,
@@ -396,19 +415,15 @@ export async function updateConduireDates(
     });
 }
 
-export async function deleteConduire(
-    matricule: string,
-    idFacteur: number,
-    idDegat: number
-): Promise<void> {
-    await prisma.conduire.delete({
-        where: {
-            matricule_idFacteur_idDegat: {
-                matricule,
-                idFacteur,
-                idDegat,
-            },
-        },
+export async function deleteConduire(idConduire: number): Promise<void> {
+    await prisma.$transaction(async (tx) => {
+        await tx.degat.deleteMany({
+            where: { idConduire },
+        });
+
+        await tx.conduire.delete({
+            where: { idConduire },
+        });
     });
 }
 
@@ -431,7 +446,7 @@ export async function getSubirs(): Promise<Subir[]> {
 }
 
 export async function addSubir(data: CreateSubirData): Promise<Subir> {
-    return await prisma.subir.create({
+    return prisma.subir.create({
         data,
     });
 }
@@ -469,7 +484,11 @@ export async function getInterventionsCompletes() {
             piecesJustificatives: true,
             subirs: {
                 include: {
-                    vehicule: true,
+                    vehicule: {
+                        include: {
+                            type: true,
+                        },
+                    },
                 },
             },
         },
@@ -483,8 +502,12 @@ export async function getFacteursComplets() {
             interventions: true,
             conduites: {
                 include: {
-                    vehicule: true,
-                    degat: true,
+                    vehicule: {
+                        include: {
+                            type: true,
+                        },
+                    },
+                    degats: true,
                 },
             },
         },
@@ -501,7 +524,7 @@ export async function addInterventionAvecVehicule(
     interventionData: CreateInterventionData,
     matricule: string
 ): Promise<Intervention> {
-    return await prisma.$transaction(async (tx) => {
+    return prisma.$transaction(async (tx) => {
         const intervention = await tx.intervention.create({
             data: interventionData,
         });

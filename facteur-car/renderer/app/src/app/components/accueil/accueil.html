@@ -1,0 +1,290 @@
+<main>
+  <section class="bg-primary text-white py-5">
+    <div class="container py-5">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <span class="badge text-bg-light text-primary mb-3 px-3 py-2">
+            Facteur Car
+          </span>
+
+          <h1 class="display-4 fw-bold mb-4">
+            Gestion intelligente du parc automobile
+          </h1>
+
+          <p class="lead mb-4">
+            Gérez facilement vos facteurs, véhicules, tournées, dégâts et
+            interventions depuis une seule application.
+          </p>
+
+          <div class="d-flex flex-wrap gap-3">
+            <a routerLink="/tournee/ajouter" class="btn btn-light btn-lg">
+              Créer une tournée
+            </a>
+
+            <a routerLink="/tournees" class="btn btn-outline-light btn-lg">
+              Voir les tournées
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card border-0 shadow-lg">
+            <div class="card-body p-4 text-dark">
+              <h2 class="h5 fw-bold mb-4">
+                Accès rapide
+              </h2>
+
+              <div class="d-flex align-items-center mb-3">
+                <div
+                  class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                  style="width: 44px; height: 44px;"
+                >
+                  👤
+                </div>
+                <div>
+                  <div class="fw-semibold">Facteurs</div>
+                  <small class="text-muted">Conducteurs et affectations</small>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3">
+                <div
+                  class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                  style="width: 44px; height: 44px;"
+                >
+                  🚗
+                </div>
+                <div>
+                  <div class="fw-semibold">Véhicules</div>
+                  <small class="text-muted">Suivi du parc automobile</small>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center mb-3">
+                <div
+                  class="bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center me-3"
+                  style="width: 44px; height: 44px;"
+                >
+                  🛣️
+                </div>
+                <div>
+                  <div class="fw-semibold">Tournées</div>
+                  <small class="text-muted">Association facteur-véhicule</small>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center">
+                <div
+                  class="bg-danger text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                  style="width: 44px; height: 44px;"
+                >
+                  ⚠️
+                </div>
+                <div>
+                  <div class="fw-semibold">Dégâts</div>
+                  <small class="text-muted">Suivi des incidents</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row text-center g-4">
+        <div class="col-md-4">
+          <a routerLink="/facteurs" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <div class="display-6 fw-bold text-primary">01</div>
+                <p class="text-muted mb-0">Gestion des facteurs</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a routerLink="/vehicules" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <div class="display-6 fw-bold text-success">02</div>
+                <p class="text-muted mb-0">Suivi des véhicules</p>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-4">
+          <a routerLink="/tournees" class="text-decoration-none">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <div class="display-6 fw-bold text-warning">03</div>
+                <p class="text-muted mb-0">Gestion des tournées</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">
+          Modules principaux
+        </h2>
+
+        <p class="text-muted">
+          Accédez rapidement aux fonctionnalités essentielles.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+              <div
+                class="bg-primary bg-opacity-10 text-primary rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 56px; height: 56px;"
+              >
+                👤
+              </div>
+
+              <h3 class="h5 fw-bold">Facteurs</h3>
+
+              <p class="text-muted">
+                Consultez, ajoutez, modifiez ou supprimez les facteurs.
+              </p>
+
+              <div class="d-flex gap-2">
+                <a routerLink="/facteurs" class="btn btn-primary">
+                  Liste
+                </a>
+
+                <a routerLink="/facteur/ajouter" class="btn btn-outline-primary">
+                  Ajouter
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+              <div
+                class="bg-success bg-opacity-10 text-success rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 56px; height: 56px;"
+              >
+                🚗
+              </div>
+
+              <h3 class="h5 fw-bold">Véhicules</h3>
+
+              <p class="text-muted">
+                Gérez les véhicules, les matricules et les types.
+              </p>
+
+              <div class="d-flex gap-2">
+                <a routerLink="/vehicules" class="btn btn-success">
+                  Liste
+                </a>
+
+                <a routerLink="/vehicule/ajouter" class="btn btn-outline-success">
+                  Ajouter
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+              <div
+                class="bg-warning bg-opacity-10 text-warning rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 56px; height: 56px;"
+              >
+                🛣️
+              </div>
+
+              <h3 class="h5 fw-bold">Tournées</h3>
+
+              <p class="text-muted">
+                Associez un facteur à un véhicule pour créer une tournée.
+              </p>
+
+              <div class="d-flex gap-2">
+                <a routerLink="/tournees" class="btn btn-warning">
+                  Liste
+                </a>
+
+                <a routerLink="/tournee/ajouter" class="btn btn-outline-warning">
+                  Ajouter
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-primary shadow-sm">
+            <div class="card-body p-4">
+              <div
+                class="bg-primary bg-opacity-10 text-primary rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 56px; height: 56px;"
+              >
+                ➕
+              </div>
+
+              <h3 class="h5 fw-bold">Nouvelle tournée</h3>
+
+              <p class="text-muted">
+                Créez rapidement une nouvelle tournée facteur-véhicule.
+              </p>
+
+              <a routerLink="/tournee/ajouter" class="btn btn-primary">
+                Créer maintenant
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+              <div
+                class="bg-secondary bg-opacity-10 text-secondary rounded-3 d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 56px; height: 56px;"
+              >
+                🧭
+              </div>
+
+              <h3 class="h5 fw-bold">Navigation</h3>
+
+              <p class="text-muted">
+                Retournez à l’accueil ou consultez les listes principales.
+              </p>
+
+              <div class="d-flex gap-2">
+                <a routerLink="/" class="btn btn-secondary">
+                  Accueil
+                </a>
+
+                <a routerLink="/tournees" class="btn btn-outline-secondary">
+                  Tournées
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>

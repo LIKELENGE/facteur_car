@@ -101,6 +101,7 @@ ipcMain.handle('add-degat', (_e, data) => {
         description: data.description,
         dateConstat: toDate(data.dateConstat),
         lienImage: data.lienImage,
+        idConduire: data.idConduire,
     });
 });
 
@@ -274,13 +275,22 @@ ipcMain.handle(
 
 // ─── IPC : Conduire ────────────────────────────────────────────
 
-ipcMain.handle('get-conduites', () => db.getConduites());
+ipcMain.handle('get-conduites', () => {
+    return db.getConduites();
+});
+
+ipcMain.handle('get-conduites-completes', () => {
+    return db.getConduitesCompletes();
+});
+
+ipcMain.handle('get-conduire-by-id', (_e, idConduire: number) => {
+    return db.getConduireById(idConduire);
+});
 
 ipcMain.handle('add-conduire', (_e, data) => {
     return db.addConduire({
         matricule: data.matricule,
         idFacteur: data.idFacteur,
-        idDegat: data.idDegat,
         dateDebut: toDate(data.dateDebut),
         dateFin: toDate(data.dateFin),
     });
@@ -290,28 +300,21 @@ ipcMain.handle(
     'update-conduire-dates',
     (
         _e,
-        matricule: string,
-        idFacteur: number,
-        idDegat: number,
+        idConduire: number,
         dateDebut: string | Date,
         dateFin: string | Date
     ) => {
         return db.updateConduireDates(
-            matricule,
-            idFacteur,
-            idDegat,
+            idConduire,
             toDate(dateDebut),
             toDate(dateFin)
         );
     }
 );
 
-ipcMain.handle(
-    'delete-conduire',
-    (_e, matricule: string, idFacteur: number, idDegat: number) => {
-        return db.deleteConduire(matricule, idFacteur, idDegat);
-    }
-);
+ipcMain.handle('delete-conduire', (_e, idConduire: number) => {
+    return db.deleteConduire(idConduire);
+});
 
 // ─── IPC : Subir ───────────────────────────────────────────────
 
