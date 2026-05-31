@@ -1,0 +1,152 @@
+<section class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 mb-1">
+        {{ modeModification ? 'Modifier un facteur' : 'Ajouter un facteur' }}
+      </h1>
+
+      <p class="text-muted mb-0">
+        Remplissez les informations du facteur
+      </p>
+    </div>
+
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      routerLink="/facteurs"
+    >
+      Retour
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="alert alert-info">
+      Chargement du facteur...
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (!loading) {
+    <form
+      #facteurForm="ngForm"
+      (ngSubmit)="enregistrerFacteur()"
+      class="card"
+    >
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="nom" class="form-label">Nom</label>
+            <input
+              id="nom"
+              type="text"
+              name="nom"
+              class="form-control"
+              [(ngModel)]="formFacteur.nom"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input
+              id="prenom"
+              type="text"
+              name="prenom"
+              class="form-control"
+              [(ngModel)]="formFacteur.prenom"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="dateNaiss" class="form-label">Date de naissance</label>
+            <input
+              id="dateNaiss"
+              type="date"
+              name="dateNaiss"
+              class="form-control"
+              [(ngModel)]="formFacteur.dateNaiss"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="telephone" class="form-label">Téléphone</label>
+            <input
+              id="telephone"
+              type="tel"
+              name="telephone"
+              class="form-control"
+              [(ngModel)]="formFacteur.telephone"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="mail" class="form-label">Email</label>
+            <input
+              id="mail"
+              type="email"
+              name="mail"
+              class="form-control"
+              [(ngModel)]="formFacteur.mail"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="dateObtentionPermisB" class="form-label">
+              Date obtention permis B
+            </label>
+            <input
+              id="dateObtentionPermisB"
+              type="date"
+              name="dateObtentionPermisB"
+              class="form-control"
+              [(ngModel)]="formFacteur.dateObtentionPermisB"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="sexe" class="form-label">Sexe</label>
+            <select
+              id="sexe"
+              name="sexe"
+              class="form-select"
+              [(ngModel)]="formFacteur.sexe"
+              required
+            >
+              <option value="">-- Choisir --</option>
+              <option value="M">Masculin</option>
+              <option value="F">Féminin</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer d-flex justify-content-end gap-2">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          routerLink="/facteurs"
+        >
+          Annuler
+        </button>
+
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="facteurForm.invalid"
+        >
+          {{ modeModification ? 'Modifier' : 'Ajouter' }}
+        </button>
+      </div>
+    </form>
+  }
+</section>

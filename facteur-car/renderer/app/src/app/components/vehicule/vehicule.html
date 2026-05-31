@@ -1,0 +1,117 @@
+<section class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 mb-1">
+        {{ modeModification ? 'Modifier un véhicule' : 'Ajouter un véhicule' }}
+      </h1>
+
+      <p class="text-muted mb-0">
+        Remplissez les informations du véhicule
+      </p>
+    </div>
+
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      routerLink="/vehicules"
+    >
+      Retour
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="alert alert-info">
+      Chargement du véhicule...
+    </div>
+  }
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (!loading) {
+    <form
+      #vehiculeForm="ngForm"
+      (ngSubmit)="enregistrerVehicule()"
+      class="card"
+    >
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="matricule" class="form-label">Matricule</label>
+            <input
+              id="matricule"
+              type="text"
+              name="matricule"
+              class="form-control"
+              [(ngModel)]="formVehicule.matricule"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="nombrePorte" class="form-label">
+              Nombre de portes
+            </label>
+            <input
+              id="nombrePorte"
+              type="text"
+              name="nombrePorte"
+              class="form-control"
+              [(ngModel)]="formVehicule.nombrePorte"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="numChassis" class="form-label">
+              Numéro chassis
+            </label>
+            <input
+              id="numChassis"
+              type="text"
+              name="numChassis"
+              class="form-control"
+              [(ngModel)]="formVehicule.numChassis"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="idType" class="form-label">
+              ID type véhicule
+            </label>
+            <input
+              id="idType"
+              type="number"
+              name="idType"
+              class="form-control"
+              [(ngModel)]="formVehicule.idType"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer d-flex justify-content-end gap-2">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          routerLink="/vehicules"
+        >
+          Annuler
+        </button>
+
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="vehiculeForm.invalid"
+        >
+          {{ modeModification ? 'Modifier' : 'Ajouter' }}
+        </button>
+      </div>
+    </form>
+  }
+</section>

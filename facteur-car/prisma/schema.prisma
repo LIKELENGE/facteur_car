@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Type {
+  idType  Int    @id @default(autoincrement()) @map("Id_type")
+  nomType String @map("nom_type")
+
+  vehicules Vehicule[]
+
+  @@map("type")
+}
+
+model Facteur {
+  idFacteur            Int      @id @default(autoincrement()) @map("Id_facteur")
+  nom                  String
+  prenom               String
+  dateNaiss            DateTime @map("date_naiss")
+  telephone            String
+  mail                 String
+  dateObtentionPermisB DateTime @map("date_optention_permis_b")
+  sexe                 String
+
+  interventions Intervention[]
+  conduites     Conduire[]
+
+  @@map("facteur")
+}
+
+model Degat {
+  idDegat     Int      @id @default(autoincrement()) @map("Id_degat")
+  description String
+  dateConstat DateTime @map("date_constat")
+  lienImage   String   @map("lien_image")
+
+  conduites Conduire[]
+
+  @@map("degat")
+}
+
+model TypeIntervention {
+  idTypeIntervention Int    @id @default(autoincrement()) @map("Id_type_intervention")
+  libelle            String
+
+  interventions Intervention[]
+
+  @@map("type_intervention")
+}
+
+model TypePieceJustificative {
+  idTypePieceJustificative Int    @id @default(autoincrement()) @map("Id_type_piece_justificative")
+  libelle                  String
+
+  piecesJustificatives PieceJustificative[]
+
+  @@map("type_piece_justificative")
+}
+
+model Vehicule {
+  matricule   String @id
+  nombrePorte String @map("nombre_porte")
+  numChassis  String @map("num_chassis")
+
+  idType Int @map("Id_type")
+
+  type      Type       @relation(fields: [idType], references: [idType])
+  conduites Conduire[]
+  subirs    Subir[]
+
+  @@map("vehicule")
+}
+
+model Intervention {
+  idIntervention    Int      @id @default(autoincrement()) @map("Id_intervention")
+  heureDebut        DateTime @map("heure_debut")
+  heureFin          DateTime @map("heure_fin")
+  fraisIntervention Decimal  @map("frais_intervention")
+
+  idTypeIntervention Int @map("Id_type_intervention")
+  idFacteur          Int @map("Id_facteur")
+
+  typeIntervention     TypeIntervention     @relation(fields: [idTypeIntervention], references: [idTypeIntervention])
+  facteur              Facteur              @relation(fields: [idFacteur], references: [idFacteur])
+  piecesJustificatives PieceJustificative[]
+  subirs               Subir[]
+
+  @@map("intervention")
+}
+
+model PieceJustificative {
+  idPieceJustificative Int    @id @default(autoincrement()) @map("Id_piece_justificative")
+  lien                 String
+
+  idTypePieceJustificative Int? @map("Id_type_piece_justificative")
+  idIntervention           Int  @map("Id_intervention")
+
+  typePieceJustificative TypePieceJustificative? @relation(fields: [idTypePieceJustificative], references: [idTypePieceJustificative])
+  intervention           Intervention            @relation(fields: [idIntervention], references: [idIntervention])
+
+  @@map("piece_justificative")
+}
+
+model Conduire {
+  matricule String
+  idFacteur Int      @map("Id_facteur")
+  idDegat   Int      @map("Id_degat")
+  dateDebut DateTime @map("date_debut")
+  dateFin   DateTime @map("date_fin")
+
+  vehicule Vehicule @relation(fields: [matricule], references: [matricule])
+  facteur  Facteur  @relation(fields: [idFacteur], references: [idFacteur])
+  degat    Degat    @relation(fields: [idDegat], references: [idDegat])
+
+  @@id([matricule, idFacteur, idDegat])
+  @@map("conduire")
+}
+
+model Subir {
+  matricule      String
+  idIntervention Int    @map("Id_intervention")
+
+  vehicule     Vehicule     @relation(fields: [matricule], references: [matricule])
+  intervention Intervention @relation(fields: [idIntervention], references: [idIntervention])
+
+  @@id([matricule, idIntervention])
+  @@map("subir")
+}

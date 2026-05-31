@@ -1,0 +1,57 @@
+/* Styles spécifiques à App */
+/* (les styles généraux body, h1... sont dans styles.css) */
+
+.input-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.input-row input {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-row button {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* ─── Barre d'actions groupées ─────────────────────────────── */
+
+.actions-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+/* Bouton "Tout cocher / Tout décocher" */
+.btn-toggle-all {
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    color: #333;
+    transition: background-color 0.15s;
+}
+
+.btn-toggle-all:hover {
+    background-color: #e0e0e0;
+}
+
+#todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.empty {
+    color: #aaa;
+    font-style: italic;
+}
