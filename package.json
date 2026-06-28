@@ -12,6 +12,7 @@
     "build:angular": "cd renderer/app && npm run build",
     "build": "npm run build:electron && npm run build:angular",
     "start": "npm run build && npx electron .",
+    "launch": "npm install && npm run install:renderer && npm run prisma:generate && npx prisma migrate deploy && npm run prisma:seed && npm run start",
     "start:dev": "npx electron .",
     "prisma:migrate": "npx prisma migrate dev --name init",
     "prisma:generate": "npx prisma generate",

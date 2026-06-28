@@ -24,11 +24,20 @@ L'Angular CLI globale n'est pas obligatoire : le script de build utilise le CLI 
 Depuis la racine du projet :
 
 ```bash
+npm run launch
+```
+
+Cette commande installe les dépendances, prépare Prisma, peuple la base de données, compile Angular/Electron et lance l'application.
+
+Commandes détaillées équivalentes :
+
+```bash
 npm install
 npm run install:renderer
 npm run prisma:generate
-npm run prisma:migrate
+npx prisma migrate deploy
 npm run prisma:seed
+npm run start
 ```
 
 La commande `npm run prisma:migrate` crée ou met à jour la base SQLite locale. La commande `npm run prisma:seed` insère des données de test.
@@ -46,31 +55,6 @@ Cette commande :
 1. compile le processus principal Electron ;
 2. compile l'application Angular ;
 3. lance Electron.
-
-## Lancement avec Docker Compose
-
-La seconde session demande un lancement portable. Le projet contient donc une image Docker et un fichier Compose.
-
-```bash
-docker compose up --build
-```
-
-Docker Desktop doit être démarré avant d'exécuter cette commande.
-
-Quand le conteneur est lancé, ouvrez :
-
-```text
-http://localhost:6080/vnc.html
-```
-
-L'application Electron s'affiche dans le navigateur via noVNC. Aucun serveur Angular sur `localhost:4200` n'est utilisé : Angular est buildé dans `renderer/app/dist/app/browser/`, puis Electron charge `index.html` avec `loadFile`.
-
-Fichiers concernés :
-
-- `Dockerfile`
-- `docker-compose.yml`
-- `.dockerignore`
-- `docker/entrypoint.sh`
 
 ## Scripts utiles
 
