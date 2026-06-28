@@ -45,10 +45,10 @@ COPY prisma.config.ts ./
 COPY .env ./
 COPY prisma ./prisma
 
-RUN npm ci
+RUN npm install --no-audit --no-fund
 
 COPY renderer/app/package*.json ./renderer/app/
-RUN cd renderer/app && npm ci
+RUN cd renderer/app && npm install --no-audit --no-fund
 
 COPY tsconfig.json ./
 COPY src ./src
