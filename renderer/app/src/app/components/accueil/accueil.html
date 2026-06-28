@@ -1,0 +1,96 @@
+<main>
+  <section class="bg-primary text-white py-5">
+    <div class="container py-5">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <span class="badge text-bg-light text-primary mb-3 px-3 py-2">
+            Facteur Car
+          </span>
+
+          <h1 class="display-4 fw-bold mb-4">
+            Gestion du parc automobile
+          </h1>
+
+          <p class="lead mb-4">
+            Gérez vos facteurs, véhicules et tournées depuis une application
+            Electron locale connectée à SQLite avec Prisma.
+          </p>
+
+          <div class="d-flex flex-wrap gap-3">
+            <a routerLink="/tournee/ajouter" class="btn btn-light btn-lg">
+              Créer une tournée
+            </a>
+
+            <a routerLink="/tournees" class="btn btn-outline-light btn-lg">
+              Voir les tournées
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card border-0 shadow-lg">
+            <div class="card-body p-4 text-dark">
+              <h2 class="h5 fw-bold mb-4">Statistiques Prisma</h2>
+
+              @if (chargement()) {
+                <div class="alert alert-info mb-0">
+                  Chargement des statistiques...
+                </div>
+              } @else if (messageErreur()) {
+                <div class="alert alert-warning mb-0">
+                  {{ messageErreur() }}
+                </div>
+              } @else {
+                <div class="row g-3">
+                  @for (module of modules(); track module.titre) {
+                    <div class="col-6">
+                      <div class="border rounded p-3 h-100">
+                        <div class="fs-2 fw-bold">{{ module.valeur }}</div>
+                        <div class="text-muted">{{ module.titre }}</div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold">Modules disponibles</h2>
+        <p class="text-muted">
+          Accédez directement aux principales pages de l'application.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        @for (module of modules(); track module.titre) {
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body p-4">
+                <span [class]="'badge mb-3 ' + module.badgeClasse">
+                  {{ module.valeur }}
+                </span>
+
+                <h3 class="h5 fw-bold">{{ module.titre }}</h3>
+
+                <p class="text-muted">
+                  {{ module.description }}
+                </p>
+
+                <a [routerLink]="module.route" [class]="module.boutonClasse">
+                  {{ module.bouton }}
+                </a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+</main>

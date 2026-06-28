@@ -41,6 +41,9 @@ prisma/dev.db-journal
 logs/
 *.log
 
+# Consignes et guides PDF fournis pour le cours
+*.pdf
+
 # OS files
 .DS_Store
 Thumbs.db

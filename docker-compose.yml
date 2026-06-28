@@ -1,0 +1,13 @@
+services:
+  facteur-car:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: facteur-car:seconde-session
+    container_name: facteur-car
+    environment:
+      SCREEN_WIDTH: "1280"
+      SCREEN_HEIGHT: "800"
+    ports:
+      - "6080:6080"
+    shm_size: "1gb"

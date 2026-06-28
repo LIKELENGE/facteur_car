@@ -1,0 +1,23 @@
+<td>{{ vehicule().matricule }}</td>
+<td>{{ vehicule().nombrePorte }}</td>
+<td>{{ vehicule().numChassis }}</td>
+<td>{{ vehicule().type.nomType }}</td>
+
+<td class="text-end">
+  <button
+    class="btn btn-sm btn-outline-primary me-2"
+    type="button"
+    [routerLink]="['/vehicule/modifier', vehicule().matricule]"
+    [state]="{ vehicule: vehicule() }"
+  >
+    Modifier
+  </button>
+
+  <button
+    class="btn btn-sm btn-outline-danger"
+    type="button"
+    (click)="demanderSuppression()"
+  >
+    Supprimer
+  </button>
+</td>

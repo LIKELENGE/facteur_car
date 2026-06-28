@@ -1,0 +1,148 @@
+<section class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="h3 mb-1">
+        {{ modeModification ? 'Modifier un véhicule' : 'Ajouter un véhicule' }}
+      </h1>
+
+      <p class="text-muted mb-0">
+        Formulaire réactif Angular avec validation des champs.
+      </p>
+    </div>
+
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      routerLink="/vehicules"
+    >
+      Retour
+    </button>
+  </div>
+
+  @if (loading()) {
+    <div class="alert alert-info">
+      Chargement du véhicule...
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (!loading()) {
+    <form
+      [formGroup]="formVehicule"
+      (ngSubmit)="enregistrerVehicule()"
+      class="card"
+    >
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="matricule" class="form-label">Matricule</label>
+            <input
+              id="matricule"
+              type="text"
+              class="form-control"
+              formControlName="matricule"
+              [readonly]="modeModification"
+            />
+
+            @if (
+              formVehicule.controls.matricule.invalid &&
+              formVehicule.controls.matricule.touched
+            ) {
+              <div class="form-text text-danger">
+                Le matricule est obligatoire.
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="nombrePorte" class="form-label">
+              Nombre de portes
+            </label>
+            <input
+              id="nombrePorte"
+              type="number"
+              min="0"
+              class="form-control"
+              formControlName="nombrePorte"
+            />
+
+            @if (
+              formVehicule.controls.nombrePorte.invalid &&
+              formVehicule.controls.nombrePorte.touched
+            ) {
+              <div class="form-text text-danger">
+                Le nombre de portes doit être un nombre entier.
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="numChassis" class="form-label">
+              Numéro chassis
+            </label>
+            <input
+              id="numChassis"
+              type="text"
+              class="form-control"
+              formControlName="numChassis"
+            />
+
+            @if (
+              formVehicule.controls.numChassis.invalid &&
+              formVehicule.controls.numChassis.touched
+            ) {
+              <div class="form-text text-danger">
+                Le numéro de chassis est obligatoire.
+              </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="idType" class="form-label">
+              ID type véhicule
+            </label>
+            <input
+              id="idType"
+              type="number"
+              min="1"
+              class="form-control"
+              formControlName="idType"
+            />
+
+            @if (
+              formVehicule.controls.idType.invalid &&
+              formVehicule.controls.idType.touched
+            ) {
+              <div class="form-text text-danger">
+                Le type de véhicule est obligatoire.
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer d-flex justify-content-end gap-2">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          routerLink="/vehicules"
+        >
+          Annuler
+        </button>
+
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="formVehicule.invalid"
+        >
+          {{ modeModification ? 'Modifier' : 'Ajouter' }}
+        </button>
+      </div>
+    </form>
+  }
+</section>
